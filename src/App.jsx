@@ -1,21 +1,34 @@
-import React from 'react';
-import ctdLogo from './assets/mono-blue-logo.svg'
+import { useState } from 'react';
 import './App.css';
-/*
+import inventoryData from "./assets/inventory.json";
+import Header from './Header';
+import ProductList from './ProductList';
+import ProductCard from './ProductCard';
+
+
 function App() {
+  const [inventory, setInventory] = useState(inventoryData.inventory);
+
+  function promoteItem() {
+    return (
+      <ProductCard
+      baseName="Limited Edition Tee!"
+      baseDescription="Special limited edition neon green shirt with a metallic Code the Dream logo shinier than the latest front-end frame work! Signed by the legendary Frank!"
+      />
+    );
+  }
+
   return (
-    <div className="coming-soon"> // 1. creates a div with class "coming-soon"
-      <h1>CTD SWAG</h1> // 2. inside div is placed a h1 with text 
-      <div style={{ height: 100, width:100 }}> / /3. Then a div with inline style
-        <img src={ctdLogo} alt="Code the Dream Logo" /> // 4. inside the div an image with src and alt
-      </div>
-      <h2>Coming Soon...</h2> // 5. h2 with text
-    </div>
+    <main>
+      <Header />
+      <ProductList inventory={inventory}> {promoteItem()}</ProductList>
+    </main>
   );
 }
-*/
-//top and bottom code are equivalent only top is JSX dependent and bottom is javascript react.createElement() dependent 
+export default App;
+{/*top and bottom code are equivalent only top is JSX dependent and bottom is javascript react.createElement() dependent*/}
 
+{/*
 function App() {
   return React.createElement( // 1.creates a root <div> type
    'div',
@@ -39,4 +52,5 @@ function App() {
    React.createElement('h2', null, 'Coming Soon...'), // 6. Third child: <h2>Coming Soon...</h2>
   );
 }
-export default App;
+*/}
+
