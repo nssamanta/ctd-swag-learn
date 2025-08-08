@@ -1,6 +1,6 @@
 import ProductCard from './ProductCard';
 
-function ProductList({ inventory, children }) {
+function ProductList({ inventory, children, handleAddItemToCart }) {
     return(
         <ul>
             {children}
@@ -10,6 +10,8 @@ function ProductList({ inventory, children }) {
                         key={item.id}
                         baseName={item.baseName}
                         baseDescription={item.baseDescription}
+                        handleAddItemToCart={handleAddItemToCart}
+                        id={item.id}
                     />
                 );
             })}
