@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import placeholder from './assets/placeholder.png';
+import CartItem from './CartItem';
 
 function Cart({ cart, handleCloseCart, setCart }) {
   const [workingCart, setWorkingCart] = useState(cart);
@@ -67,34 +67,11 @@ function Cart({ cart, handleCloseCart, setCart }) {
               {/*MAP THROUGH CART ITEMS: similar to how products were mapped in ProductList, for each item in the cart array, create a list item */}
               {workingCart.map((item) => {
                 return (
-                  <li className="cartListItem" key={item.id}>
-                    {/*ITEM IMAGE: placeholder image for the cart item */}
-                    <img src={placeholder} alt="" />
-                    {/*ITEM NAME: Display the products base name */}
-                    <h2>{item.baseName}</h2>
-                    {item.variantName !== 'Default' ? (
-                      <p>{item.variantName}</p>
-                    ) : null}
-
-                    {/**ITEM PRICE SECTION: shows individual item cost */}
-                    <div className="cartListItemSubtotal">
-                      <label>
-                        Count:
-                        <input
-                          type="number"
-                          min="0"
-                          value={item.itemCount}
-                          onChange={(event) =>
-                            handleUpdateField({ event, id: item.id })
-                          }
-                        />
-                      </label>
-                      <p>
-                        Subtotal: $
-                        {(item.price * item.itemCount).toFixed(2) || 0}
-                      </p>
-                    </div>
-                  </li>
+                  <CartItem 
+                    key={item.id}
+                    item={item}
+                    onHandleItemUpdate={handleUpdateField}
+                  />
                 );
               })}
             </ul>

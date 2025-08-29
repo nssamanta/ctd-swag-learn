@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
-import inventoryData from "./assets/inventory.json";
-import Header from './Header';
-import ProductList from './ProductList';
-import ProductCard from './ProductCard';
-import Cart from './Cart';
-
+import inventoryData from './assets/inventory.json';
+import Header from '../shared/layout/Header';
+import ProductList from '../features/ProductList/ProductList';
+import ProductCard from '../features/ProductList/ProductCard';
+import Cart from '../features/ProductList/Cart/Cart';
+import Footer from './layouts/Footer';
 
 function App() {
   const [inventory, setInventory] = useState([]);
@@ -16,7 +16,7 @@ function App() {
 
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const year = useRef(new Date().getFullYear());
+ 
 
   function handleAddItemToCart(id) {
     const inventoryItem = inventory.find((item) => item.id === id);
@@ -32,13 +32,15 @@ function App() {
         ...itemToUpdate,
         itemCount: itemToUpdate.itemCount + 1,
       };
-      console.log(`Increased quantity for ${inventoryItem.baseName} to ${updatedCartItem.itemCount}`);
+      console.log(
+        `Increased quantity for ${inventoryItem.baseName} to ${updatedCartItem.itemCount}`
+      );
     } else {
-      updatedCartItem = {...inventoryItem, itemCount: 1 };
+      updatedCartItem = { ...inventoryItem, itemCount: 1 };
       console.log(`Added new item: ${inventoryItem.baseName}`);
     }
     setCart([...cart.filter((item) => item.id !== id), updatedCartItem]);
-}
+  }
 
   function removeItemFromCart(id) {
     const updateCart = cart.filter((item) => item.id !== id);
@@ -65,21 +67,16 @@ function App() {
           inventory={inventory}
           handleAddItemToCart={handleAddItemToCart}
         />
-        {isCartOpen && 
-          <Cart 
-            cart={cart} 
+        {isCartOpen && (
+          <Cart
+            cart={cart}
             setCart={setCart}
-            handleCloseCart={handleCloseCart} 
+            handleCloseCart={handleCloseCart}
           />
-      }
+        )}
       </main>
-
-      <footer>
-        <p>
-          Made with ❤️ | &copy; {year.current}{' '}
-          <a href="http://codethedream.org/">CTD</a>
-        </p>
-      </footer>
+    <Footer />
+     
     </>
   );
 }
